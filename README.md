@@ -21,13 +21,14 @@
 3. No prior knowledge of stock markets or trading is required – all formulas are provided below.
 
 ####Table 1. Sample data from the Global Beverage Corporation Exchange
-Stock Symbol | Type       | Last Dividend | Fixed Dividend | Par Value
--------------|------------|:-------------:|:--------------:|:--------:
-TEA          | Common    | 0              |                | 100
-POP          | Common    | 8              |                | 100
-ALE          | Common    | 23             |                | 60
-GIN          | Preferred | 8              | 2%             | 100
-JOE          | Common    | 13             |                | 250
+
+| Stock Symbol | Type      | Last Dividend | Fixed Dividend | Par Value |
+| :----------: | :-------: | :-----------: | :------------: |:--------: |
+TEA            | Common    | 0             |                | 100       |
+POP            | Common    | 8             |                | 100       |
+ALE            | Common    | 23            |                | 60        |
+GIN            | Preferred | 8             | 2%             | 100       |
+JOE            | Common    | 13            |                | 250       |
 
 ####Table 2. Formula
 | formulas                    | Common                                            | Preferred                     
