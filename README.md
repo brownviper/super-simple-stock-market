@@ -31,9 +31,10 @@ GIN            | Preferred | 8             | 2%             | 100       |
 JOE            | Common    | 13            |                | 250       |
 
 ####Table 2. Formula
-| formulas                    | Common                                            | Preferred                     
-|----------------------------|---------------------------------------------------|-------------------------------
-|Dividend Yield              | LastDividend/Price                                |  FixedDividend.ParValue/Price 
-|P/E Ratio                   | Price/Dividend                                    |                               
-|Geometric Mean              | (P1 P2 P3 ... Pn)^(1/n)                           |                               
-|Volume Weighted Stock Price |  Sum(TradedPrice * Quantity)/Sum(Quantity)       |                               
+
+| formulas                    | Common                                     | Preferred                                 |
+| :-------------------------: | :----------------------------------------: | :---------------------------------------: |
+| Dividend Yield              | LastDividend/Price                         | FixedDividend.ParValue/Price              |
+| P/E Ratio                   | Price/Dividend                             | Price/Dividend                            |
+| Geometric Mean              | (P1 P2 P3 ... Pn)^(1/n)                    | (P1 P2 P3 ... Pn)^(1/n)                   |
+| Volume Weighted Stock Price |  Sum(TradedPrice * Quantity)/Sum(Quantity) | Sum(TradedPrice * Quantity)/Sum(Quantity) |
