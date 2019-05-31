@@ -35,5 +35,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+test {
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
 // Define the main class for the application
 mainClassName = 'SuperSimpleStockMarket.App'

@@ -9,20 +9,14 @@ import SuperSimpleStockMarket.components.Stock
 
 class DividendYieldTest extends Specification {
 
-    def "Calculate last dividend for common stock"() {
-
-        Stock stock = new Stock(lastDividend, parValue)
-
-    }
-
-    def "application has a greeting"() {
+    def "Calculate dividend yield for common stock"() {
         setup:
-        def app = new App()
+        Stock stock = new Stock(10, 60)
 
         when:
-        def result = app.greeting
+        BigDecimal expectedDividendYield =  stock.dividendYield(5)
 
         then:
-        result != null
+        assert(expectedDividendYield.doubleValue() == BigDecimal.valueOf(2.0).doubleValue())
     }
 }
