@@ -6,11 +6,9 @@ import java.math.RoundingMode;
 
 public class Stock {
     private final BigDecimal lastDividend;
-    private final BigDecimal parValue;
 
-    public Stock(BigDecimal lastDividend, BigDecimal parValue) {
+    public Stock(BigDecimal lastDividend) {
         this.lastDividend = lastDividend;
-        this.parValue = parValue;
     }
 
     public BigDecimal dividendYield(BigDecimal price) {
