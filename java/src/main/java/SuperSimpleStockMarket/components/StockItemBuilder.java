@@ -1,8 +1,10 @@
 package SuperSimpleStockMarket.components;
 
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import lombok.Getter;
 
 public final class StockItemBuilder {
 
@@ -50,7 +52,7 @@ public final class StockItemBuilder {
         }
 
         if (this.stockType == StockType.PREFERRED) {
-            stock = new PreferredStockItem(fixedDividend, parValue);
+            stock = new PreferredStockItem(lastDividend, fixedDividend, parValue);
         }
 
         if (this.stockType == StockType.COMMON) {
@@ -62,9 +64,23 @@ public final class StockItemBuilder {
         return stock;
     }
 
+    @Getter
     public abstract class StockItem {
-        public final MathContext ROUNDING = new MathContext(30, RoundingMode.HALF_EVEN);
+        private final BigDecimal lastDividend;
+
+        StockItem(BigDecimal lastDividend) {
+            this.lastDividend = lastDividend;
+        }
+
+
         public abstract BigDecimal dividendYield(BigDecimal price);
+
+        public BigDecimal peRatio(BigDecimal price) {
+            BigDecimal result = price.divide(this.getLastDividend(), ROUNDING).stripTrailingZeros();
+            return result.setScale(5, BigDecimal.ROUND_HALF_EVEN);
+        }
+
+        final MathContext ROUNDING = new MathContext(30, RoundingMode.HALF_EVEN);
     }
 
     public class PreferredStockItem extends StockItem {
@@ -72,7 +88,8 @@ public final class StockItemBuilder {
         private final BigDecimal fixedDividend;
         private final BigDecimal parValue;
 
-        public PreferredStockItem(BigDecimal fixedDividend, BigDecimal parValue) {
+        PreferredStockItem(BigDecimal lastDividend, BigDecimal fixedDividend, BigDecimal parValue) {
+            super(lastDividend);
             this.fixedDividend = fixedDividend;
             this.parValue = parValue;
         }
@@ -95,10 +112,9 @@ public final class StockItemBuilder {
     }
 
     public class CommonStockItem extends StockItem {
-        private final BigDecimal lastDividend;
 
-        public CommonStockItem(BigDecimal lastDividend) {
-            this.lastDividend = lastDividend;
+        CommonStockItem(BigDecimal lastDividend) {
+            super(lastDividend);
         }
 
         @Override
@@ -108,7 +124,7 @@ public final class StockItemBuilder {
                 throw new RuntimeException("price should be greater than zero");
             }
 
-            BigDecimal result = this.lastDividend.divide(price, ROUNDING).stripTrailingZeros();
+            BigDecimal result = this.getLastDividend().divide(price, ROUNDING).stripTrailingZeros();
 
             return result.setScale(5, BigDecimal.ROUND_HALF_EVEN);
         }
