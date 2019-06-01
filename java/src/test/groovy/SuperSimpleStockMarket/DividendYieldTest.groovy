@@ -13,7 +13,15 @@ class DividendYieldTest extends Specification {
 
     def "Calculate dividend yield for preferred stock"() {
         setup:
-        StockPreferred stock = new StockPreferred(1.0, 1.0)
+        StockPreferred stock = new StockPreferred(6.0, 60.0)
+        BigDecimal actual = null
+
+        when:
+            actual = stock.dividendYield(30)
+
+        then:
+            assert(actual.doubleValue() == BigDecimal.valueOf(12.0).doubleValue())
+
     }
 
     @Unroll

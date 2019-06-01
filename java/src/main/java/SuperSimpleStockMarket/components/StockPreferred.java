@@ -12,4 +12,17 @@ public class StockPreferred {
         this.fixedDividend = fixedDividend;
         this.parValue = parValue;
     }
+
+    public BigDecimal dividendYield(BigDecimal price) {
+
+        MathContext ROUNDING = new MathContext(30, RoundingMode.HALF_EVEN);
+
+        BigDecimal result = this.fixedDividend
+                .multiply(this.parValue, ROUNDING)
+                .divide(price, ROUNDING)
+                .stripTrailingZeros();
+
+        return result.setScale(5, BigDecimal.ROUND_HALF_EVEN);
+
+    }
 }
