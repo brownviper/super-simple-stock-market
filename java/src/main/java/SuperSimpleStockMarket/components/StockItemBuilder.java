@@ -76,6 +76,10 @@ public final class StockItemBuilder {
         public abstract BigDecimal dividendYield(BigDecimal price);
 
         public BigDecimal peRatio(BigDecimal price) {
+            if (getLastDividend().compareTo(BigDecimal.ZERO) <= 0) {
+                throw new RuntimeException("lastDividend should be greater than zero");
+            }
+
             BigDecimal result = price.divide(this.getLastDividend(), ROUNDING).stripTrailingZeros();
             return result.setScale(5, BigDecimal.ROUND_HALF_EVEN);
         }
