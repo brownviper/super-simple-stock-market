@@ -5,8 +5,9 @@ import spock.lang.Specification
 import spock.lang.Title
 import spock.lang.Unroll
 
-import SuperSimpleStockMarket.components.Stock
-import SuperSimpleStockMarket.components.StockPreferred
+import SuperSimpleStockMarket.components.StockItem
+import SuperSimpleStockMarket.components.CommonStockItem
+import SuperSimpleStockMarket.components.PreferredStockItem
 
 @Title("Tests for calculating Divided Yield")
 class DividendYieldTest extends Specification {
@@ -17,7 +18,7 @@ class DividendYieldTest extends Specification {
     ) {
         setup:
         Class exception = null
-        StockPreferred stock = new StockPreferred(fixedDividend, parValue)
+        PreferredStockItem stock = new PreferredStockItem(fixedDividend, parValue)
         BigDecimal actual = null
 
         when:
@@ -46,7 +47,7 @@ class DividendYieldTest extends Specification {
     ) {
         setup:
         Class exception = null
-        Stock stock = new Stock(lastDividend)
+        CommonStockItem stock = new CommonStockItem(lastDividend)
         BigDecimal actual = null
 
         when:

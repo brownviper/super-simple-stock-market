@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-public class Stock {
+public class CommonStockItem {
     private final BigDecimal lastDividend;
 
-    public Stock(BigDecimal lastDividend) {
+    public CommonStockItem(BigDecimal lastDividend) {
         this.lastDividend = lastDividend;
     }
 

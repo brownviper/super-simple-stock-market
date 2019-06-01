@@ -4,15 +4,17 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-public class StockPreferred {
+public class PreferredStockItem extends StockItem {
+
     private final BigDecimal fixedDividend;
     private final BigDecimal parValue;
 
-    public StockPreferred(BigDecimal fixedDividend, BigDecimal parValue) {
+    public PreferredStockItem(BigDecimal fixedDividend, BigDecimal parValue) {
         this.fixedDividend = fixedDividend;
         this.parValue = parValue;
     }
 
+    @Override
     public BigDecimal dividendYield(BigDecimal price) {
 
         if (price.compareTo(BigDecimal.ZERO) <= 0) {
