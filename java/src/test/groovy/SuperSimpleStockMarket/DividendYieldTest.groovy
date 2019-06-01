@@ -11,17 +11,23 @@ import SuperSimpleStockMarket.components.StockPreferred
 @Title("Tests for calculating Divided Yield")
 class DividendYieldTest extends Specification {
 
-    def "Calculate dividend yield for preferred stock"() {
+    @Unroll
+    def "Calculate dividend yield for preferred stock, fixedDividend=[#fixedDividend], parValue=[#parValue] and price=[#price]"(
+            fixedDividend, parValue, price, expectedDividendYield
+    ) {
         setup:
-        StockPreferred stock = new StockPreferred(6.0, 60.0)
+        StockPreferred stock = new StockPreferred(fixedDividend, parValue)
         BigDecimal actual = null
 
         when:
-            actual = stock.dividendYield(30)
+            actual = stock.dividendYield(price)
 
         then:
-            assert(actual.doubleValue() == BigDecimal.valueOf(12.0).doubleValue())
+            assert(actual.doubleValue() == BigDecimal.valueOf(expectedDividendYield).doubleValue())
 
+        where:
+        fixedDividend | parValue | price | expectedDividendYield
+        10.0          | 5.0      | 2.0   | 25.0
     }
 
     @Unroll
