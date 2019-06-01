@@ -25,10 +25,10 @@ class DividendYieldTest extends Specification {
         builder.addLastDividend(lastDividend)
         builder.addFixedDividend(fixedDividend)
         builder.addParValue(parValue)
-        StockItemBuilder.StockItem stockItem = builder.buildStockItem()
 
         when:
         try{
+            StockItemBuilder.StockItem stockItem = builder.buildStockItem()
             actual = stockItem.dividendYield(price)
         } catch(RuntimeException e) {
             exception = e.class
@@ -48,5 +48,6 @@ class DividendYieldTest extends Specification {
         COMMON    | 10.0         | null          | null     | 5.0   | 2.0
         COMMON    | 10.0         | null          | null     | 0.0   | RuntimeException
         COMMON    | 10.0         | null          | null     | -5.0  | RuntimeException
+        null      | 10.0         | 10.0          | 5.0      | 2.0   | RuntimeException
     }
 }

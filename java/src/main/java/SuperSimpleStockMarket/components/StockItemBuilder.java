@@ -35,14 +35,31 @@ public final class StockItemBuilder {
         this.parValue = parValue;
     }
 
+    private void reset() {
+        stockType = null;
+        lastDividend = null;
+        fixedDividend = null;
+        parValue = null;
+    }
+
     public StockItem buildStockItem() {
-        if(this.stockType == StockType.PREFERRED) {
-            return new PreferredStockItem(fixedDividend, parValue);
-        } else if (this.stockType == StockType.COMMON) {
-            return new CommonStockItem(lastDividend);
-        } else {
-            throw new RuntimeException("unknown stock type");
+        StockItem stock = null;
+
+        if (stockType == null) {
+            throw new RuntimeException("error - stockType must be specified");
         }
+
+        if (this.stockType == StockType.PREFERRED) {
+            stock = new PreferredStockItem(fixedDividend, parValue);
+        }
+
+        if (this.stockType == StockType.COMMON) {
+            stock = new CommonStockItem(lastDividend);
+        }
+
+        reset();
+
+        return stock;
     }
 
     public abstract class StockItem {
