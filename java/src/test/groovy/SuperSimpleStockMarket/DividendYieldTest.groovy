@@ -36,5 +36,6 @@ class DividendYieldTest extends Specification {
         lastDividend | price | expectedDividendYield
         10.0         | 5.0   | 2.0
         10.0         | 0.0   | RuntimeException
+        10.0         | -5.0   | RuntimeException
     }
 }
