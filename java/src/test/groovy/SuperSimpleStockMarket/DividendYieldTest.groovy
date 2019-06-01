@@ -6,9 +6,15 @@ import spock.lang.Title
 import spock.lang.Unroll
 
 import SuperSimpleStockMarket.components.Stock
+import SuperSimpleStockMarket.components.StockPreferred
 
 @Title("Tests for calculating Divided Yield")
 class DividendYieldTest extends Specification {
+
+    def "Calculate dividend yield for preferred stock"() {
+        setup:
+        StockPreferred stock = new StockPreferred(1.0, 1.0)
+    }
 
     @Unroll
     def "Calculate dividend yield for common stock, lastDividend=[#lastDividend], and price=[#price]"(
