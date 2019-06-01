@@ -43,5 +43,7 @@ class peRatioTest extends Specification {
         stockType | lastDividend | price | expectedDividendYield
         PREFERRED | 10.0         | 30.0  | 3.0
         PREFERRED | 0.0          | 30.0  | RuntimeException
+        COMMON    | 10.0         | 5     | 0.5
+        COMMON    | 0.0          | 5     | RuntimeException
     }
 }
