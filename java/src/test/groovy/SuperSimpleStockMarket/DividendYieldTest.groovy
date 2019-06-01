@@ -7,6 +7,7 @@ import spock.lang.Unroll
 
 import SuperSimpleStockMarket.components.Stock
 
+@Title("Tests for calculating Divided Yield")
 class DividendYieldTest extends Specification {
 
     @Unroll
