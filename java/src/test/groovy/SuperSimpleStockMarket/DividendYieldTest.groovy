@@ -16,18 +16,28 @@ class DividendYieldTest extends Specification {
             fixedDividend, parValue, price, expectedDividendYield
     ) {
         setup:
+        Class exception = null
         StockPreferred stock = new StockPreferred(fixedDividend, parValue)
         BigDecimal actual = null
 
         when:
+        try{
             actual = stock.dividendYield(price)
+        } catch(RuntimeException e) {
+            exception = e.class
+        }
 
         then:
+        if(expectedDividendYield instanceof Class) {
+            assert(expectedDividendYield).equals(exception)
+        } else {
             assert(actual.doubleValue() == BigDecimal.valueOf(expectedDividendYield).doubleValue())
+        }
 
         where:
         fixedDividend | parValue | price | expectedDividendYield
         10.0          | 5.0      | 2.0   | 25.0
+        10.0          | 5.0      | 0.0   | RuntimeException
     }
 
     @Unroll
