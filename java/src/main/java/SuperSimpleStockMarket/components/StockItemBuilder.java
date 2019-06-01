@@ -4,22 +4,45 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-public final class StockItemFactory {
+public final class StockItemBuilder {
 
-    private StockItemFactory() {}
+    private StockType stockType = null;
+    private BigDecimal lastDividend = null;
+    private BigDecimal fixedDividend = null;
+    private BigDecimal parValue = null;
 
-    private static final StockItemFactory factory = new StockItemFactory();
+    private StockItemBuilder() {}
 
-    public static StockItemFactory getFactory() {
-        return factory;
+    private static final StockItemBuilder builder = new StockItemBuilder();
+
+    public static StockItemBuilder getBuilder() {
+        return builder;
     }
 
-    public CommonStockItem createCommonStockItem(BigDecimal lastDividend) {
-        return new CommonStockItem(lastDividend);
+    public void addStockType(StockType stockType) {
+        this.stockType = stockType;
     }
 
-    public StockItem createPreferredStockItem(BigDecimal fixedDividend, BigDecimal parValue) {
-        return new PreferredStockItem(fixedDividend, parValue);
+    public void addLastDividend(BigDecimal lastDividend) {
+        this.lastDividend = lastDividend;
+    }
+
+    public void addFixedDividend(BigDecimal fixedDividend) {
+        this.fixedDividend = fixedDividend;
+    }
+
+    public void addParValue(BigDecimal parValue) {
+        this.parValue = parValue;
+    }
+
+    public StockItem buildStockItem() {
+        if(this.stockType == StockType.PREFERRED) {
+            return new PreferredStockItem(fixedDividend, parValue);
+        } else if (this.stockType == StockType.COMMON) {
+            return new CommonStockItem(lastDividend);
+        } else {
+            throw new RuntimeException("unknown stock type");
+        }
     }
 
     public abstract class StockItem {
@@ -72,6 +95,11 @@ public final class StockItemFactory {
 
             return result.setScale(5, BigDecimal.ROUND_HALF_EVEN);
         }
+    }
+
+    public enum StockType {
+        COMMON,
+        PREFERRED
     }
 
 }
