@@ -8,6 +8,7 @@ import lombok.Getter;
 
 public final class StockItemBuilder {
 
+    private String stockSymbol = null;
     private StockType stockType = null;
     private BigDecimal lastDividend = null;
     private BigDecimal fixedDividend = null;
@@ -19,6 +20,10 @@ public final class StockItemBuilder {
 
     public static StockItemBuilder getBuilder() {
         return builder;
+    }
+
+    public void addStockSymbol(String stockSymbol) {
+        this.stockSymbol = stockSymbol;
     }
 
     public void addStockType(StockType stockType) {
@@ -52,11 +57,11 @@ public final class StockItemBuilder {
         }
 
         if (this.stockType == StockType.PREFERRED) {
-            stock = new PreferredStockItem(lastDividend, fixedDividend, parValue);
+            stock = new PreferredStockItem(stockSymbol, lastDividend, fixedDividend, parValue);
         }
 
         if (this.stockType == StockType.COMMON) {
-            stock = new CommonStockItem(lastDividend);
+            stock = new CommonStockItem(stockSymbol, lastDividend);
         }
 
         reset();
@@ -66,12 +71,13 @@ public final class StockItemBuilder {
 
     @Getter
     public abstract class StockItem {
+        private final String stockSymbol;
         private final BigDecimal lastDividend;
 
-        StockItem(BigDecimal lastDividend) {
+        StockItem(String stockSymbol, BigDecimal lastDividend) {
+            this.stockSymbol = stockSymbol;
             this.lastDividend = lastDividend;
         }
-
 
         public abstract BigDecimal dividendYield(BigDecimal price);
 
@@ -92,8 +98,8 @@ public final class StockItemBuilder {
         private final BigDecimal fixedDividend;
         private final BigDecimal parValue;
 
-        PreferredStockItem(BigDecimal lastDividend, BigDecimal fixedDividend, BigDecimal parValue) {
-            super(lastDividend);
+        PreferredStockItem(String stockSymbol, BigDecimal lastDividend, BigDecimal fixedDividend, BigDecimal parValue) {
+            super(stockSymbol, lastDividend);
             this.fixedDividend = fixedDividend;
             this.parValue = parValue;
         }
@@ -117,8 +123,8 @@ public final class StockItemBuilder {
 
     public class CommonStockItem extends StockItem {
 
-        CommonStockItem(BigDecimal lastDividend) {
-            super(lastDividend);
+        CommonStockItem(String stockSymbol, BigDecimal lastDividend) {
+            super(stockSymbol, lastDividend);
         }
 
         @Override

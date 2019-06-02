@@ -14,13 +14,14 @@ import static SuperSimpleStockMarket.components.StockItemBuilder.StockType.PREFE
 class DividendYieldTest extends Specification {
 
     @Unroll
-    def "Calculate dividend yield for stockType = [#stockType], lastDividend =[#lastDividend], fixedDividend=[#fixedDividend], parValue=[#parValue] and price=[#price]"(
-            stockType, lastDividend, fixedDividend, parValue, price, expectedDividendYield
+    def "Calculate dividend yield for stockSymbol = [#stockSymbol], stockType = [#stockType], lastDividend =[#lastDividend], fixedDividend=[#fixedDividend], parValue=[#parValue] and price=[#price]"(
+            stockSymbol, stockType, lastDividend, fixedDividend, parValue, price, expectedDividendYield
     ) {
         setup:
         Class exception = null
         BigDecimal actual = null
         StockItemBuilder builder = StockItemBuilder.getBuilder()
+        builder.addStockSymbol(stockSymbol)
         builder.addStockType(stockType)
         builder.addLastDividend(lastDividend)
         builder.addFixedDividend(fixedDividend)
@@ -42,12 +43,12 @@ class DividendYieldTest extends Specification {
         }
 
         where:
-        stockType | lastDividend | fixedDividend | parValue | price | expectedDividendYield
-        PREFERRED | null         | 10.0          | 5.0      | 2.0   | 25.0
-        PREFERRED | null         | 10.0          | 5.0      | 0.0   | RuntimeException
-        COMMON    | 10.0         | null          | null     | 5.0   | 2.0
-        COMMON    | 10.0         | null          | null     | 0.0   | RuntimeException
-        COMMON    | 10.0         | null          | null     | -5.0  | RuntimeException
-        null      | 10.0         | 10.0          | 5.0      | 2.0   | RuntimeException
+        stockSymbol | stockType | lastDividend | fixedDividend | parValue | price | expectedDividendYield
+            "GIN"   | PREFERRED | null         | 10.0          | 5.0      | 2.0   | 25.0
+            "GIN"   | PREFERRED | null         | 10.0          | 5.0      | 0.0   | RuntimeException
+            "TEA"   | COMMON    | 10.0         | null          | null     | 5.0   | 2.0
+            "POP"   | COMMON    | 10.0         | null          | null     | 0.0   | RuntimeException
+            "ALE"   | COMMON    | 10.0         | null          | null     | -5.0  | RuntimeException
+            "JOE"   | null      | 10.0         | 10.0          | 5.0      | 2.0   | RuntimeException
     }
 }

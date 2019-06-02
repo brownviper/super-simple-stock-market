@@ -14,13 +14,14 @@ import static SuperSimpleStockMarket.components.StockItemBuilder.StockType.PREFE
 class peRatioTest extends Specification {
 
     @Unroll
-    def "Calculate P/E ratio for stockType=[#stockType], lastDividend=[#lastDivided], price=[#price]" (
-            stockType, lastDividend, price, expectedDividendYield
+    def "Calculate P/E ratio for stockSymbol = [#stockSymbol], stockType=[#stockType], lastDividend=[#lastDivided], price=[#price]" (
+            stockSymbol, stockType, lastDividend, price, expectedDividendYield
     ) {
         setup:
         Class exception = null
         BigDecimal actual = null
         StockItemBuilder builder = StockItemBuilder.getBuilder()
+        builder.addStockSymbol(stockSymbol)
         builder.addStockType(stockType)
         builder.addLastDividend(lastDividend)
 
@@ -40,10 +41,10 @@ class peRatioTest extends Specification {
         }
 
         where:
-        stockType | lastDividend | price | expectedDividendYield
-        PREFERRED | 10.0         | 30.0  | 3.0
-        PREFERRED | 0.0          | 30.0  | RuntimeException
-        COMMON    | 10.0         | 5     | 0.5
-        COMMON    | 0.0          | 5     | RuntimeException
+        stockSymbol | stockType | lastDividend | price | expectedDividendYield
+            "GIN"   | PREFERRED | 10.0         | 30.0  | 3.0
+            "GIN"   | PREFERRED | 0.0          | 30.0  | RuntimeException
+            "JOE"   | COMMON    | 10.0         | 5     | 0.5
+            "POP"   | COMMON    | 0.0          | 5     | RuntimeException
     }
 }
