@@ -8,6 +8,10 @@ public final class StockMarketService {
         this.repository = repository;
     }
 
+    TradeItem processStockItem(BuyOrSell buyOrSell, StockItemBuilder.StockItem stockItem) {
+        return null;
+    }
+
     public enum BuyOrSell {
         BUY,
         SELL
