@@ -10,11 +10,12 @@ public final class StockMarketService {
         this.repository = repository;
     }
 
-    TradeItem processStockItem(StockItemBuilder.StockItem stockItem, BuyOrSell buyOrSell, BigDecimal price, Integer quantity) {
-        TradeItem tradeItem = new TradeItem(stockItem, buyOrSell, price, quantity);
-        repository.addTradeItem(tradeItem);
+    TradeItem processStockItem(StockItemBuilder.StockItem stockItem,
+                               BuyOrSell buyOrSell,
+                               BigDecimal price,
+                               Integer quantity) {
 
-        return tradeItem;
+        return repository.addTradeItem(stockItem, buyOrSell, price, quantity);
     }
 
     public enum BuyOrSell {
