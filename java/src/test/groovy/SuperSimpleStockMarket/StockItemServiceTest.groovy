@@ -30,7 +30,7 @@ class StockItemServiceTest extends Specification {
 
     @Unroll
     def "StockMarketService #desc"(
-         desc, stockType, buyOrSell, lastDividend, parValue, fixedDividend
+         desc, stockType, buyOrSell, price, quantity, lastDividend, parValue, fixedDividend
     ) {
         given:
         StockItemBuilder.StockItem stockItem = createStockItem(stockType, lastDividend, parValue, fixedDividend)
@@ -38,13 +38,13 @@ class StockItemServiceTest extends Specification {
         when:
         TradeItemsRepository repository = new TradeItemsRepository()
         StockMarketService service = new StockMarketService(repository)
-        TradeItem tradeItem = service.processStockItem(buyOrSell, stockItem)
+        TradeItem tradeItem = service.processStockItem(stockItem, buyOrSell, price, quantity)
 
         then:
-        assert(tradeItem).equals(null)
+        tradeItem
 
         where:
-        desc                            | stockType | buyOrSell | lastDividend | parValue | fixedDividend
-        'can buy common stock item'     | COMMON    | BUY       | 10.0         | 60.0     | null
+        desc                            | stockType | buyOrSell | price  | quantity | lastDividend | parValue | fixedDividend
+        'can buy common stock item'     | COMMON    | BUY       | 100.0  | 4        | 10.0         | 60.0     | null
     }
 }

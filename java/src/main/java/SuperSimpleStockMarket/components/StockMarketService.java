@@ -1,5 +1,7 @@
 package SuperSimpleStockMarket.components;
 
+import java.math.BigDecimal;
+
 public final class StockMarketService {
 
     private final TradeItemsRepository repository;
@@ -8,8 +10,11 @@ public final class StockMarketService {
         this.repository = repository;
     }
 
-    TradeItem processStockItem(BuyOrSell buyOrSell, StockItemBuilder.StockItem stockItem) {
-        return null;
+    TradeItem processStockItem(StockItemBuilder.StockItem stockItem, BuyOrSell buyOrSell, BigDecimal price, Integer quantity) {
+        TradeItem tradeItem = new TradeItem(stockItem, buyOrSell, price, quantity);
+        repository.addTradeItem(tradeItem);
+
+        return tradeItem;
     }
 
     public enum BuyOrSell {
