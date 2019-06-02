@@ -47,5 +47,8 @@ class StockItemServiceTest extends Specification {
         where:
         desc                            | stockType | buyOrSell | price  | quantity | lastDividend | parValue | fixedDividend
         'can buy common stock item'     | COMMON    | BUY       | 100.0  | 4        | 10.0         | 60.0     | null
+        'can buy preferred stock item'  | PREFERRED | BUY       | 100.0  | 4        | 10.0         | 60.0     | 7.0
+        'can sell common stock item'    | COMMON    | SELL      | 100.0  | 4        | 10.0         | 60.0     | null
+        'can sell preferred stock item' | PREFERRED | SELL      | 100.0  | 4        | 10.0         | 60.0     | 7
     }
 }
