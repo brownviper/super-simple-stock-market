@@ -1,33 +1,26 @@
 package SuperSimpleStockMarket
 
-import spock.lang.Specification
-
+import SuperSimpleStockMarket.components.StockItemBuilder
 import spock.lang.Title
 import spock.lang.Unroll
 
-import SuperSimpleStockMarket.components.StockItemBuilder
 import static SuperSimpleStockMarket.components.StockItemBuilder.StockType.COMMON
 import static SuperSimpleStockMarket.components.StockItemBuilder.StockType.PREFERRED
 
-
 @Title("Tests for calculating P/E Ratio")
-class peRatioTest extends Specification {
+class peRatioTest extends CommonSpecification {
 
     @Unroll
     def "Calculate P/E ratio for stockSymbol = [#stockSymbol], stockType=[#stockType], lastDividend=[#lastDivided], price=[#price]" (
-            stockSymbol, stockType, lastDividend, price, expectedDividendYield
+            desc, stockSymbol, stockType, lastDividend, price, expectedDividendYield
     ) {
         setup:
         Class exception = null
         BigDecimal actual = null
-        StockItemBuilder builder = StockItemBuilder.getBuilder()
-        builder.addStockSymbol(stockSymbol)
-        builder.addStockType(stockType)
-        builder.addLastDividend(lastDividend)
 
         when:
         try{
-            StockItemBuilder.StockItem stockItem = builder.buildStockItem()
+            StockItemBuilder.StockItem stockItem = createStockItem(stockSymbol, stockType, lastDividend, null, null)
             actual = stockItem.peRatio(price)
         } catch(RuntimeException e) {
             exception = e.class
@@ -41,10 +34,10 @@ class peRatioTest extends Specification {
         }
 
         where:
-        stockSymbol | stockType | lastDividend | price | expectedDividendYield
-            "GIN"   | PREFERRED | 10.0         | 30.0  | 3.0
-            "GIN"   | PREFERRED | 0.0          | 30.0  | RuntimeException
-            "JOE"   | COMMON    | 10.0         | 5     | 0.5
-            "POP"   | COMMON    | 0.0          | 5     | RuntimeException
+        desc                                          | stockSymbol | stockType | lastDividend | price | expectedDividendYield
+        "calculate P/E ratio for preferred stock"     |    "GIN"   | PREFERRED | 10.0         | 30.0  | 3.0
+        "throws if price is zero for preferred stock" |     "GIN"   | PREFERRED | 0.0          | 30.0  | RuntimeException
+        "calculate P/E ratio for common stock"        |    "JOE"   | COMMON    | 10.0         | 5     | 0.5
+        "throws if price is zero for common stock"    |    "POP"   | COMMON    | 0.0          | 5     | RuntimeException
     }
 }
