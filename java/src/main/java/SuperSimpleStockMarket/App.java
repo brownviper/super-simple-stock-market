@@ -5,7 +5,7 @@ package SuperSimpleStockMarket;
 
 public class App {
     public String getGreeting() {
-        return "Hello world.";
+        return "Welcome to Super Simple Stock Market";
     }
 
     public static void main(String[] args) {
