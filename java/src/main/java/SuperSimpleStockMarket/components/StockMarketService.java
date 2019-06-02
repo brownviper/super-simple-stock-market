@@ -62,6 +62,10 @@ public final class StockMarketService {
         return volumeWeightedStockPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
 
+    public BigDecimal calculateDBCEAllShareIndex() {
+        return BigDecimal.ZERO;
+    }
+
     public enum BuyOrSell {
         BUY,
         SELL
