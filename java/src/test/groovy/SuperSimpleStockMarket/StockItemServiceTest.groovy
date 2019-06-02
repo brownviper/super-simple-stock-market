@@ -42,6 +42,7 @@ class StockItemServiceTest extends Specification {
 
         then:
         tradeItem
+        assert(repository.contains(tradeItem) == Boolean.TRUE)
 
         where:
         desc                            | stockType | buyOrSell | price  | quantity | lastDividend | parValue | fixedDividend

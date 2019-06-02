@@ -18,4 +18,9 @@ public final class TradeItemsRepository {
 
         return tradeItem;
     }
+
+    public Boolean contains(TradeItem tradeItem) {
+
+        return collection.contains(tradeItem);
+    }
 }
