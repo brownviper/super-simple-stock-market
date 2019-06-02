@@ -32,12 +32,12 @@ class StockItemServiceTest extends Specification {
     def "StockMarketService #desc"(
          desc, stockType, buyOrSell, price, quantity, lastDividend, parValue, fixedDividend
     ) {
-        given:
+        setup:
         StockItemBuilder.StockItem stockItem = createStockItem(stockType, lastDividend, parValue, fixedDividend)
-
-        when:
         TradeItemsRepository repository = new TradeItemsRepository()
         StockMarketService service = new StockMarketService(repository)
+
+        when:
         TradeItem tradeItem = service.processStockItem(stockItem, buyOrSell, price, quantity)
 
         then:
