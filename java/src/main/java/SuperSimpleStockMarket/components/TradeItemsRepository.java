@@ -2,11 +2,14 @@ package SuperSimpleStockMarket.components;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Stream;
 
 public final class TradeItemsRepository {
 
-    private static LinkedBlockingQueue<TradeItem> collection = new LinkedBlockingQueue<>();
+
+    private LinkedBlockingQueue<TradeItem> collection = new LinkedBlockingQueue<>();
 
     TradeItem addTradeItem(
             StockItemBuilder.StockItem stockItem,
@@ -19,6 +22,11 @@ public final class TradeItemsRepository {
         collection.add(tradeItem);
 
         return tradeItem;
+    }
+
+    public Stream<TradeItem> getRepositoryAsStream() {
+        final HashSet<TradeItem> data = new HashSet<>(collection);
+        return data.stream();
     }
 
     public Boolean contains(TradeItem tradeItem) {

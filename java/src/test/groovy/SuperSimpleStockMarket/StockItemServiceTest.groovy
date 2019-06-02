@@ -9,6 +9,9 @@ import SuperSimpleStockMarket.components.StockItemBuilder
 import SuperSimpleStockMarket.components.TradeItemsRepository
 import SuperSimpleStockMarket.components.StockMarketService
 import SuperSimpleStockMarket.components.TradeItem
+
+import java.time.Instant
+
 import static SuperSimpleStockMarket.components.StockMarketService.BuyOrSell.BUY
 import static SuperSimpleStockMarket.components.StockMarketService.BuyOrSell.SELL
 import static SuperSimpleStockMarket.components.StockItemBuilder.StockType.COMMON
@@ -38,7 +41,7 @@ class StockItemServiceTest extends Specification {
         StockMarketService service = new StockMarketService(repository)
 
         when:
-        TradeItem tradeItem = service.processStockItem(stockItem, buyOrSell, price, quantity)
+        TradeItem tradeItem = service.processStockItem(stockItem, buyOrSell, price, quantity, Instant.now())
 
         then:
         tradeItem
