@@ -26,6 +26,7 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.0'
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
 

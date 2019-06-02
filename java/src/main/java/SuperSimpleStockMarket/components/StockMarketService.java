@@ -3,8 +3,13 @@ package SuperSimpleStockMarket.components;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
+import org.apache.commons.math3.stat.StatUtils;
+
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
 
 public final class StockMarketService {
 
@@ -63,7 +68,18 @@ public final class StockMarketService {
     }
 
     public BigDecimal calculateDBCEAllShareIndex() {
-        return BigDecimal.ZERO;
+        Stream<TradeItem> stream = repository.getRepositoryAsStream();
+        List<BigDecimal> prices = stream.collect(mapping(TradeItem::getPrice, toList()));
+
+        // do it the hard way to convert List<BigDecimal> to double[] ..... I m sure there is a better way
+        double data[] = new double[prices.size()];
+        int index = 0;
+        for (BigDecimal price : prices) {
+            data[index] = price.doubleValue();
+            index++;
+        }
+        double geometricMean = StatUtils.geometricMean(data);
+        return BigDecimal.valueOf(geometricMean).setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
 
     public enum BuyOrSell {

@@ -18,7 +18,7 @@ class GBCEAllShareIndexCalculationTest extends CommonSpecification {
         BigDecimal result = service.calculateDBCEAllShareIndex()
 
         then:
-        result == BigDecimal.ZERO
+        result == BigDecimal.valueOf(100)
     }
 
 }
