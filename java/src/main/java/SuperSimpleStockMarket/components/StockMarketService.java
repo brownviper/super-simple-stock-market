@@ -54,7 +54,7 @@ public final class StockMarketService {
             return BigDecimal.ZERO;
         }
 
-        BigDecimal volumeWeightedStockPrice = priceAndQuantitySum.divide(BigDecimal.valueOf(totalQuantity.get()), stockItem.getROUNDING());
+        BigDecimal volumeWeightedStockPrice = priceAndQuantitySum.divide(BigDecimal.valueOf(totalQuantity.get()), stockItem.getPRECISION_SCALE());
 
         System.out.println("--> For " + stockItem.getStockSymbol() + " volumeWeightedStocPrice="+ volumeWeightedStockPrice.toPlainString());
 

@@ -86,11 +86,11 @@ public final class StockItemBuilder {
                 throw new RuntimeException("lastDividend should be greater than zero");
             }
 
-            BigDecimal result = price.divide(this.getLastDividend(), ROUNDING).stripTrailingZeros();
+            BigDecimal result = price.divide(this.getLastDividend(), PRECISION_SCALE).stripTrailingZeros();
             return result.setScale(5, BigDecimal.ROUND_HALF_EVEN);
         }
 
-        final MathContext ROUNDING = new MathContext(30, RoundingMode.HALF_EVEN);
+        final MathContext PRECISION_SCALE = new MathContext(30, RoundingMode.HALF_EVEN);
     }
 
     public class PreferredStockItem extends StockItem {
@@ -112,8 +112,8 @@ public final class StockItemBuilder {
             }
 
             BigDecimal result = this.fixedDividend
-                    .multiply(this.parValue, ROUNDING)
-                    .divide(price, ROUNDING)
+                    .multiply(this.parValue, PRECISION_SCALE)
+                    .divide(price, PRECISION_SCALE)
                     .stripTrailingZeros();
 
             return result.setScale(5, BigDecimal.ROUND_HALF_EVEN);
@@ -134,7 +134,7 @@ public final class StockItemBuilder {
                 throw new RuntimeException("price should be greater than zero");
             }
 
-            BigDecimal result = this.getLastDividend().divide(price, ROUNDING).stripTrailingZeros();
+            BigDecimal result = this.getLastDividend().divide(price, PRECISION_SCALE).stripTrailingZeros();
 
             return result.setScale(5, BigDecimal.ROUND_HALF_EVEN);
         }
