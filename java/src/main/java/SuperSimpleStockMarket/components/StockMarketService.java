@@ -75,8 +75,7 @@ public final class StockMarketService {
         double data[] = new double[prices.size()];
         int index = 0;
         for (BigDecimal price : prices) {
-            data[index] = price.doubleValue();
-            index++;
+            data[index++] = price.doubleValue();
         }
         double geometricMean = StatUtils.geometricMean(data);
         return BigDecimal.valueOf(geometricMean).setScale(2, BigDecimal.ROUND_HALF_EVEN);
