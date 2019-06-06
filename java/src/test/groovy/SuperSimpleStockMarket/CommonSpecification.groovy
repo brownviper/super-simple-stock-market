@@ -58,7 +58,7 @@ class CommonSpecification extends Specification {
 
         // add GIN
         service.processStockItem(
-                createStockItem("ALE", PREFERRED, 8, 2, 100),
+                createStockItem("GIN", PREFERRED, 8, 2, 100),
                 BUY, price, quantity, Instant.now().minus(Duration.ofMinutes(12)))
 
         // add JOE
